@@ -7,106 +7,92 @@
         <link rel="stylesheet" href="/style.css">
     </head>
     <body ng-app="dashboard" ng-controller="AppCtrl">
+        <!--- 這邊是最上面的Tab，每一個Tab是一個模擬器的設定，可以在Tab最右邊按+來開新的模擬器 -->
         <div class="tabsdemoDynamicTabs">
-        <md-tabs selected="selectedIndex">
-        <md-tab ng-repeat="tab in tabs" on-select="announceSelected(tab)" on-deselect="announceDeselected(tab)" ng-disabled="tab.disabled" label="{{tab.title}}">
-        <div class="demo-tab tab{{$index%4}}" layout="vertical" layout-fill layout-align="space-around center">
-            <div ng-bind="tab.content"></div>
-            <md-button class="md-warn" ng-click="removeTab( tab )">
-            Remove Tab
-            </md-button>
-        </div>
-        </md-tab>
-        </md-tabs>
-        <form ng-submit="addTab(tTitle,tContent)" flex id="myForm{{0}}">
-            <div layout="vertical" layout-sm="horizontal" layout-padding layout-align="left center">
-                <span class="title">Add a new Tab:</span>
-                <md-text-float label="Label" ng-model="tTitle"></md-text-float>
-                <md-text-float label="Content" ng-model="tContent"></md-text-float>
-                <md-button class="add-tab md-primary" type="submit" style="max-height: 40px">Add Tab</md-button>
-            </div>
-        </form>
-        </div>
-        <md-content ng-view="" scroll-y="" flex="" class="md-padding ng-scope md-default-theme">
-            <div layout="vertical" layout-fill="" class="doc-content ng-scope">
-                <section class="md-whiteframe-z1 -toolbardemoBasicUsage">
-                    <div flex="" layout="vertical">
-                        <md-content>
-
-                        <md-toolbar>
-                        <h2 class="md-toolbar-tools">
-                            <span>Checkbox Test (default)</span>
-                        </h2>
-                        </md-toolbar>
-
-                        <br>
-                        <div>
-
-                            <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
-                            Checkbox 1: {{ data.cb1 }}
-                            </md-checkbox>
-
-                            <md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'">
-                            Checkbox 2: {{ data.cb2 }}
-                            </md-checkbox>
-
-                            <md-checkbox disabled aria-label="Disabled checkbox">
-                            Checkbox (Disabled)
-                            </md-checkbox>
-
-                            <md-checkbox disabled aria-label="Disabled checked checkbox" ng-model="data.cb4" ng-init="data.cb4=true">
-                            Checkbox (Disabled, Checked)
-                            </md-checkbox>
-
-                            <md-checkbox noink aria-label="Checkbox No Ink">
-                            Checkbox (No Ink)
-                            </md-checkbox>
+            <md-tabs selected="selectedIndex">
+            <md-tab ng-repeat="tab in tabs" on-select="announceSelected(tab)" on-deselect="announceDeselected(tab)" ng-disabled="tab.disabled" label="{{tab.title}}">
+            <div class="demo-tab tab{{$index%4}}" layout="vertical" layout-fill layout-align="space-around center">
+                <div ng-bind="tab.content"></div>
+                <!--- 這邊是內容的版面，顯示個別模擬器可以設定的參數 -->
+                <!--- TODO 把可以設定的參數內容補齊並排版 -->
+                <div layout="vertical" layout-fill="" class="doc-content ng-scope">
+                    <section class="md-whiteframe-z1 -toolbardemoBasicUsage">
+                        <div flex="" layout="vertical">
+                            <md-content>
+                                <!-- 這邊我覺得要類似這網站的Tasks這樣比較好 http://theme.eakroko.de/flat 不過新增task的方式照現在排版 -->
+                                <ul ng-repeat="tab in tabs">
+                                   <li>{{tab.title}}</li> 
+                                </ul>
+                            </md-content>
                         </div>
-                        </md-content>
+                    </section>
+                </div>
+                <!--- 新增process -->
+                <form ng-submit="addTab(tTitle,tContent)" flex id="myForm{{0}}">
+                    <div layout="vertical" layout-sm="horizontal" layout-padding layout-align="left center">
+                        <span class="title">Add a new task:</span>
+                        <md-text-float label="Process Name" ng-model="tTitle"></md-text-float>
+                        <md-button class="add-tab md-primary" type="submit" style="max-height: 40px">Add Task</md-button>
                     </div>
-                </section>
+                </form>
 
+                <div layout="vertical" layout-fill="" class="doc-content ng-scope">
+                    <section class="md-whiteframe-z1 -toolbardemoBasicUsage">
+                        <div flex="" layout="vertical">
+                            <md-content>
 
-                <br/>
-                <section class="md-whiteframe-z1 -toolbardemoBasicUsage">
-                    <div flex="" layout="vertical">
-                        <md-content>
+                            <md-toolbar>
+                            <h2 class="md-toolbar-tools">
+                                <span>Checkbox Test (default)</span>
+                            </h2>
+                            </md-toolbar>
 
-                        <md-toolbar>
-                        <h2 class="md-toolbar-tools">
-                            <span>Checkbox Test (default)</span>
-                        </h2>
-                        </md-toolbar>
+                            <br>
+                            <div>
 
-                        <br>
-                        <div ng-controller="AppCtrl">
+                                <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
+                                Checkbox 1: {{ data.cb1 }}
+                                </md-checkbox>
 
-                            <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
-                            Checkbox 1: {{ data.cb1 }}
-                            </md-checkbox>
+                                <md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'">
+                                Checkbox 2: {{ data.cb2 }}
+                                </md-checkbox>
 
-                            <md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'">
-                            Checkbox 2: {{ data.cb2 }}
-                            </md-checkbox>
+                                <md-checkbox disabled aria-label="Disabled checkbox">
+                                Checkbox (Disabled)
+                                </md-checkbox>
 
-                            <md-checkbox disabled aria-label="Disabled checkbox">
-                            Checkbox (Disabled)
-                            </md-checkbox>
+                                <md-checkbox disabled aria-label="Disabled checked checkbox" ng-model="data.cb4" ng-init="data.cb4=true">
+                                Checkbox (Disabled, Checked)
+                                </md-checkbox>
 
-                            <md-checkbox disabled aria-label="Disabled checked checkbox" ng-model="data.cb4" ng-init="data.cb4=true">
-                            Checkbox (Disabled, Checked)
-                            </md-checkbox>
-
-                            <md-checkbox noink aria-label="Checkbox No Ink">
-                            Checkbox (No Ink)
-                            </md-checkbox>
+                                <md-checkbox noink aria-label="Checkbox No Ink">
+                                Checkbox (No Ink)
+                                </md-checkbox>
+                            </div>
+                            </md-content>
                         </div>
-                        </md-content>
-                    </div>
-                </section>
-
+                    </section>
+                </div>
+                <!--- End of Content -->
+                <!--- For removing this tab, which also means turn of this virtual machine -->
+                <md-button class="md-warn" ng-click="removeTab( tab )">
+                Turn Off Virtual Machine
+                </md-button>
             </div>
-        </md-content>
+            </md-tab>
+            </md-tabs>
+            <!--- 新增TAB Demo，這要整到TAB那邊改用+的按鈕來新增TAB，TAB的名稱是固定的 -->
+            <form ng-submit="addTab(tTitle,tContent)" flex id="myForm{{0}}">
+                <div layout="vertical" layout-sm="horizontal" layout-padding layout-align="left center">
+                    <span class="title">Add a new Tab:</span>
+                    <md-text-float label="Label" ng-model="tTitle"></md-text-float>
+                    <md-text-float label="Content" ng-model="tContent"></md-text-float>
+                    <md-button class="add-tab md-primary" type="submit" style="max-height: 40px">Add Tab</md-button>
+                </div>
+            </form>
+        </div>
+
         <script src="/bower_components/angular/angular.js"></script>
         <script src="/bower_components/angular-aria/angular-aria.js"></script>
         <script src="/bower_components/angular-animate/angular-animate.js"></script>

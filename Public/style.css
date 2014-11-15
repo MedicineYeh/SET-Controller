@@ -22,8 +22,7 @@
 .tabsdemoDynamicTabs .md-button {
   display: block; }
 .tabsdemoDynamicTabs .demo-tab {
-  height: 300px;
-  text-align: center; }
+  text-align: left; }
 .tabsdemoDynamicTabs .tab0 {
   background-color: #E3F2FD; }
 .tabsdemoDynamicTabs .tab1 {
