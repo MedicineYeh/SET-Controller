@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+        <link rel="stylesheet" href="/bower_components/angular-material/themes/default-theme.css">
+        <link rel="stylesheet" href="/style.css">
+    </head>
+    <body ng-app="dashboard" ng-controller="AppCtrl">
+        <div class="tabsdemoDynamicTabs">
+        <md-tabs selected="selectedIndex">
+        <md-tab ng-repeat="tab in tabs" on-select="announceSelected(tab)" on-deselect="announceDeselected(tab)" ng-disabled="tab.disabled" label="{{tab.title}}">
+        <div class="demo-tab tab{{$index%4}}" layout="vertical" layout-fill layout-align="space-around center">
+            <div ng-bind="tab.content"></div>
+            <md-button class="md-warn" ng-click="removeTab( tab )">
+            Remove Tab
+            </md-button>
+        </div>
+        </md-tab>
+        </md-tabs>
+        <form ng-submit="addTab(tTitle,tContent)" flex id="myForm{{0}}">
+            <div layout="vertical" layout-sm="horizontal" layout-padding layout-align="left center">
+                <span class="title">Add a new Tab:</span>
+                <md-text-float label="Label" ng-model="tTitle"></md-text-float>
+                <md-text-float label="Content" ng-model="tContent"></md-text-float>
+                <md-button class="add-tab md-primary" type="submit" style="max-height: 40px">Add Tab</md-button>
+            </div>
+        </form>
+        </div>
+        <md-content ng-view="" scroll-y="" flex="" class="md-padding ng-scope md-default-theme">
+            <div layout="vertical" layout-fill="" class="doc-content ng-scope">
+                <section class="md-whiteframe-z1 -toolbardemoBasicUsage">
+                    <div flex="" layout="vertical">
+                        <md-content>
+
+                        <md-toolbar>
+                        <h2 class="md-toolbar-tools">
+                            <span>Checkbox Test (default)</span>
+                        </h2>
+                        </md-toolbar>
+
+                        <br>
+                        <div>
+
+                            <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
+                            Checkbox 1: {{ data.cb1 }}
+                            </md-checkbox>
+
+                            <md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'">
+                            Checkbox 2: {{ data.cb2 }}
+                            </md-checkbox>
+
+                            <md-checkbox disabled aria-label="Disabled checkbox">
+                            Checkbox (Disabled)
+                            </md-checkbox>
+
+                            <md-checkbox disabled aria-label="Disabled checked checkbox" ng-model="data.cb4" ng-init="data.cb4=true">
+                            Checkbox (Disabled, Checked)
+                            </md-checkbox>
+
+                            <md-checkbox noink aria-label="Checkbox No Ink">
+                            Checkbox (No Ink)
+                            </md-checkbox>
+                        </div>
+                        </md-content>
+                    </div>
+                </section>
+
+
+                <br/>
+                <section class="md-whiteframe-z1 -toolbardemoBasicUsage">
+                    <div flex="" layout="vertical">
+                        <md-content>
+
+                        <md-toolbar>
+                        <h2 class="md-toolbar-tools">
+                            <span>Checkbox Test (default)</span>
+                        </h2>
+                        </md-toolbar>
+
+                        <br>
+                        <div ng-controller="AppCtrl">
+
+                            <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
+                            Checkbox 1: {{ data.cb1 }}
+                            </md-checkbox>
+
+                            <md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'">
+                            Checkbox 2: {{ data.cb2 }}
+                            </md-checkbox>
+
+                            <md-checkbox disabled aria-label="Disabled checkbox">
+                            Checkbox (Disabled)
+                            </md-checkbox>
+
+                            <md-checkbox disabled aria-label="Disabled checked checkbox" ng-model="data.cb4" ng-init="data.cb4=true">
+                            Checkbox (Disabled, Checked)
+                            </md-checkbox>
+
+                            <md-checkbox noink aria-label="Checkbox No Ink">
+                            Checkbox (No Ink)
+                            </md-checkbox>
+                        </div>
+                        </md-content>
+                    </div>
+                </section>
+
+            </div>
+        </md-content>
+        <script src="/bower_components/angular/angular.js"></script>
+        <script src="/bower_components/angular-aria/angular-aria.js"></script>
+        <script src="/bower_components/angular-animate/angular-animate.js"></script>
+        <script src="/bower_components/hammerjs/hammer.js"></script>
+        <script src="/bower_components/angular-material/angular-material.js"></script>
+        <script src="/script.js"></script>
+    </body>
+</html>
+
