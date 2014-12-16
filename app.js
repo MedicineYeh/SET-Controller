@@ -2,6 +2,9 @@ var express = require( 'express' );
 var http    = require( 'http' );
 var path    = require( 'path' );
 var app     = express();
+var WebSocketServer = require('ws').Server
+  , wss = new WebSocketServer({port: 8080});
+var cnt = 0;
  
 // all environments
 app.set( 'port', process.env.PORT || 3000 );
@@ -22,7 +25,15 @@ app.get( '/', function(req, res) {
     console.log('path :', req.url);
     response.sendfile(req.url);
 } );
- 
+
+wss.on('connection', function(ws) {
+    ws.on('message', function(message) {
+        console.log('received: %s', message);
+    });
+    ws.send('something ' + cnt);
+    cnt++;
+});
+
 http.createServer( app ).listen( app.get( 'port' ), function(){
   console.log( 'Express server listening on port ' + app.get( 'port' ));
 } );
