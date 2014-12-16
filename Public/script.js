@@ -41,13 +41,6 @@ angular.module('dashboard', ['ngMaterial'])
     //Timing Model
     $scope.model = {};
 
-    $scope.model.timing = [
-    {name: 'Basic', value: true},
-    {name: 'Pipeline', value: false},
-    {name: 'I/D Cache', value: false},
-    {name: 'Branch Prediction', value: false}
-    ];
-
     $scope.model.events = [
     {name: 'IRQ', value: true},
     {name: 'Kernel', value: true},
@@ -55,6 +48,13 @@ angular.module('dashboard', ['ngMaterial'])
     {name: 'Library', value: true},
     {name: 'User C/C++', value: false},
     {name: 'Dalvik', value: true}
+    ];
+
+    $scope.model.timing = [
+    {name: 'Basic', value: true},
+    {name: 'Pipeline', value: false},
+    {name: 'I/D Cache', value: false},
+    {name: 'Branch Prediction', value: false}
     ];
 
 
@@ -92,6 +92,7 @@ angular.module('dashboard', ['ngMaterial'])
         var data = "{\"type\": \"start_trace\", \"content\": ";
         data += JSON.stringify($scope.model, replacer);
         data += "}";
+        console.log(data);
 
         ws.send(data);
     }

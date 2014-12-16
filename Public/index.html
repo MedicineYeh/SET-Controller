@@ -27,12 +27,15 @@
                 </md-content>
                 <!--- 新增process -->
                 <form ng-submit="add_process(process_name); process_name=''" flex>
-                    <div layout="row" layout-sm="row" layout-padding layout-align="start center">
-                        <span class="title">Add a new task:</span>
-                        <md-text-float label="Process Name" ng-model="process_name"></md-text-float>
-                        <md-button class="add-tab md-primary" type="submit" style="max-height: 40px">Add Task</md-button>
+                    <div layout="row" layout-sm="column" layout-padding layout-align="start center">
+                        <div layout="row">
+                            <span class="title">Add a new task:</span>
+                            <md-text-float label="Process Name" ng-model="process_name"></md-text-float>
+                        </div>
+                        <md-button class="add-tab md-primary" type="submit">Add Task</md-button>
                     </div>
                 </form>
+                <br show-sm></br>
                 <md-button class="md-primary" md-theme="green" ng-click="start_trace()">Start Trace </md-button>
                 <div layout="row" layout-align="space-around center start" layout-margin="4px">
                     <md-content layout-fill layout="column" class="md-whiteframe-z1">
@@ -67,10 +70,12 @@
             </md-tabs>
             <!--- 新增TAB Demo，這要整到TAB那邊改用+的按鈕來新增TAB，TAB的名稱是固定的 -->
             <form ng-submit="add_tab(tTitle)">
-                <div layout="row" layout-sm="row" layout-padding layout-align="left center">
-                    <span class="title">Start a new VM:</span>
-                    <md-text-float label="Name" ng-model="tTitle"></md-text-float>
-                    <md-button class="add-tab md-primary" type="submit" style="max-height: 40px">Add VM</md-button>
+                <div layout="row" layout-sm="column" layout-padding layout-align="left center">
+                    <div layout="row">
+                        <span class="title">Start a new VM:</span>
+                        <md-text-float label="Name" ng-model="tTitle"></md-text-float>
+                    </div>
+                    <md-button class="add-tab md-primary" type="submit">Add VM</md-button>
                 </div>
             </form>
         </div>
