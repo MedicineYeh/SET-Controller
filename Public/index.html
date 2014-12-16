@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/bower_components/angular-material/themes/green-theme.css">
+    </head>
+    <body ng-app="dashboard" ng-controller="AppCtrl">
+        <!--- 這邊是最上面的Tab，每一個Tab是一個模擬器的設定，可以在Tab最右邊按+來開新的模擬器 -->
+        <div class="tabsdemoDynamicTabs" layout-margin layout-fill layout="column">
+            <md-tabs md-selected="selectedIndex">
+            <md-tab ng-repeat="tab in tabs" ng-disabled="tab.disabled" label="{{tab.title}}">
+            <div class="demo-tab tab{{$index%4}}" layout="column" layout-align="space-around start start">
+                <div ng-bind="tab.content"></div>
+                <!--- 這邊是內容的版面，顯示個別模擬器可以設定的參數 -->
+                <!--- TODO 把可以設定的參數內容補齊並排版 -->
+                <md-content class="md-whiteframe-z1" layout-margin="4px">
+                    <md-toolbar>
+                        <div class="md-toolbar-tools">
+                            <span class="md-flex">Traced Processes</span>
+                        </div>
+                    </md-toolbar>
+                    <div ng-repeat="process in traced_processes" layout="row" layout-align="start center" class="hover_background">
+                        <md-button ng-click=remove_process($index)>X</md-button>
+                        <span>{{process.name}}</span>
+                    </div>
+                </md-content>
+                <!--- 新增process -->
+                <form ng-submit="add_process(process_name); process_name=''" flex>
+                    <div layout="row" layout-sm="row" layout-padding layout-align="start center">
+                        <span class="title">Add a new task:</span>
+                        <md-text-float label="Process Name" ng-model="process_name"></md-text-float>
+                        <md-button class="add-tab md-primary" type="submit" style="max-height: 40px">Add Task</md-button>
+                    </div>
+                </form>
+                <md-button class="md-primary" md-theme="green" ng-click="start_trace()">Start Trace </md-button>
+                <div layout="row" layout-align="space-around center start" layout-margin="4px">
+                    <md-content layout-fill layout="column" class="md-whiteframe-z1">
+                        <md-toolbar>
+                            <h2 class="md-toolbar-tools">
+                                <span>Events</span>
+                            </h2>
+                        </md-toolbar>
+                        <md-checkbox ng-repeat="event in model.events" ng-model="event.value" aria-label="">
+                            {{ event.name }}
+                        </md-checkbox>
+                    </md-content>
+
+                    <md-content layout-fill layout="column" class="md-whiteframe-z1">
+                        <md-toolbar>
+                            <h2 class="md-toolbar-tools">
+                                <span>Timing</span>
+                            </h2>
+                        </md-toolbar>
+                        <md-checkbox ng-repeat="timing in model.timing" ng-model="timing.value" aria-label="">
+                            {{ timing.name }}
+                        </md-checkbox>
+                    </md-content>
+                </div>
+                <!--- End of Content -->
+                <!--- For removing this tab, which also means turn of this virtual machine -->
+                <md-button class="md-warn" ng-click="removeTab($index)">
+                Turn Off Virtual Machine
+                </md-button>
+            </div>
+            </md-tab>
+            </md-tabs>
+            <!--- 新增TAB Demo，這要整到TAB那邊改用+的按鈕來新增TAB，TAB的名稱是固定的 -->
+            <form ng-submit="addTab(tTitle)" flex id="myForm{{0}}">
+                <div layout="row" layout-sm="row" layout-padding layout-align="left center">
+                    <span class="title">Start a new VM:</span>
+                    <md-text-float label="Name" ng-model="tTitle"></md-text-float>
+                    <md-button class="add-tab md-primary" type="submit" style="max-height: 40px">Add VM</md-button>
+                </div>
+            </form>
+        </div>
+
+        <script src="/bower_components/angular/angular.js"></script>
+        <script src="/bower_components/angular-aria/angular-aria.js"></script>
+        <script src="/bower_components/angular-animate/angular-animate.js"></script>
+        <script src="/bower_components/hammerjs/hammer.js"></script>
+        <script src="/bower_components/angular-material/angular-material.js"></script>
+        <script src="/script.js"></script>
+    </body>
+</html>
+
