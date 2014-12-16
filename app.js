@@ -29,9 +29,14 @@ app.get( '/', function(req, res) {
 wss.on('connection', function(ws) {
     ws.on('message', function(message) {
         console.log('received: %s', message);
+        ws.send('something ' + cnt);
+        cnt++;
     });
-    ws.send('something ' + cnt);
-    cnt++;
+
+    ws.on('close', function close() {
+        console.log('disconnected');
+    });
+
 });
 
 http.createServer( app ).listen( app.get( 'port' ), function(){
