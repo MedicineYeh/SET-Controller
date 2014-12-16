@@ -57,6 +57,7 @@ angular.module('dashboard', ['ngMaterial'])
     {name: 'Branch Prediction', value: false}
     ];
 
+    $scope.model.process_list = $scope.traced_processes;
 
     //Websocket
     var ws = new WebSocket('ws://127.0.0.1:8080');
