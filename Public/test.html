@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
         <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
-        <link rel="stylesheet" href="/bower_components/angular-material/themes/default-theme.css">
+        <link rel="stylesheet" href="/bower_components/angular-material/themes/light-blue-dark-theme.css">
         <link rel="stylesheet" href="/style.css">
     </head>
     <body ng-app="dashboard" ng-controller="AppCtrl">
@@ -11,13 +11,13 @@
         <div class="tabsdemoDynamicTabs">
             <md-tabs selected="selectedIndex">
             <md-tab ng-repeat="tab in tabs" on-select="announceSelected(tab)" on-deselect="announceDeselected(tab)" ng-disabled="tab.disabled" label="{{tab.title}}">
-            <div class="demo-tab tab{{$index%4}}" layout="vertical" layout-fill layout-align="space-around center">
+            <div class="demo-tab tab{{$index%4}}" layout="column" layout-fill layout-align="space-around center">
                 <div ng-bind="tab.content"></div>
                 <!--- 這邊是內容的版面，顯示個別模擬器可以設定的參數 -->
                 <!--- TODO 把可以設定的參數內容補齊並排版 -->
-                <div layout="vertical" layout-fill="" class="doc-content ng-scope">
+                <div layout="column" layout-fill="" class="doc-content ng-scope">
                     <section class="md-whiteframe-z1 -toolbardemoBasicUsage">
-                        <div flex="" layout="vertical">
+                        <div flex="" layout="column">
                             <md-content>
                                 <!-- 這邊我覺得要類似這網站的Tasks這樣比較好 http://theme.eakroko.de/flat 不過新增task的方式照現在排版 -->
                                 <ul ng-repeat="tab in tabs">
@@ -29,16 +29,16 @@
                 </div>
                 <!--- 新增process -->
                 <form ng-submit="addTab(tTitle,tContent)" flex id="myForm{{0}}">
-                    <div layout="vertical" layout-sm="horizontal" layout-padding layout-align="left center">
+                    <div layout="column" layout-sm="row" layout-padding layout-align="left center">
                         <span class="title">Add a new task:</span>
                         <md-text-float label="Process Name" ng-model="tTitle"></md-text-float>
                         <md-button class="add-tab md-primary" type="submit" style="max-height: 40px">Add Task</md-button>
                     </div>
                 </form>
 
-                <div layout="vertical" layout-fill="" class="doc-content ng-scope">
+                <div layout="column" layout-fill="" class="doc-content ng-scope">
                     <section class="md-whiteframe-z1 -toolbardemoBasicUsage">
-                        <div flex="" layout="vertical">
+                        <div flex="" layout="column">
                             <md-content>
 
                             <md-toolbar>
@@ -84,7 +84,7 @@
             </md-tabs>
             <!--- 新增TAB Demo，這要整到TAB那邊改用+的按鈕來新增TAB，TAB的名稱是固定的 -->
             <form ng-submit="addTab(tTitle,tContent)" flex id="myForm{{0}}">
-                <div layout="vertical" layout-sm="horizontal" layout-padding layout-align="left center">
+                <div layout="row" layout-sm="row" layout-padding layout-align="left center">
                     <span class="title">Add a new Tab:</span>
                     <md-text-float label="Label" ng-model="tTitle"></md-text-float>
                     <md-text-float label="Content" ng-model="tContent"></md-text-float>

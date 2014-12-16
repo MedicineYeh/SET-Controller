@@ -1,0 +1,4 @@
+*.swp
+Public/bower_components/
+node_modules
+
