@@ -1,24 +1,27 @@
 angular.module('dashboard', ['ngMaterial'])
-.controller('AppCtrl', function($scope) {
+.controller('tab_control', function($scope) {
     //VMs
     var tabs = [
-        { title: 'One', content: "Tabs will become paginated if there isn't enough room for them."}
+        { title: 'One', content: "Tabs will become paginated if there isn't enough room for them."},
+        { title: 'Two', content: "Tabs will become paginated if there isn't enough room for them."}
     ];
 
     $scope.tabs = tabs;
     $scope.selectedIndex = 0;
-    $scope.addTab = function (title) {
-        if (name !== undefined && name !== "") {
+    $scope.add_tab = function (title) {
+        if (title !== undefined && title !== "") {
             view = title + " Content View";
             tabs.push({ title: title, content: view, disabled: false});
         }
         $scope.tTitle = "";
-        $scope.tContent = "";
     };
 
-    $scope.removeTab = function (index) {
+    $scope.remove_tab = function (index) {
         $scope.tabs.splice(index, 1);
     };
+
+})
+.controller('vm_control', function($scope) {
 
     //Process
     $scope.traced_processes = [];
@@ -61,14 +64,14 @@ angular.module('dashboard', ['ngMaterial'])
     {
         // Web Socket is connected, send data using send()
         ws.send("Message to send");
-        tabs[$scope.selectedIndex].content = "ws: Send a message";
+        $scope.tab.content = "ws: Send a message";
         $scope.$apply();
     };
 
     ws.onmessage = function (evt) 
     { 
         var received_msg = evt.data;
-        tabs[$scope.selectedIndex].content = "ws: Receive " + received_msg;
+        $scope.tab.content = "ws: Receive " + received_msg;
         $scope.$apply();
     };
 
