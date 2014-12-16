@@ -60,7 +60,7 @@ angular.module('dashboard', ['ngMaterial'])
     $scope.model.process_list = $scope.traced_processes;
 
     //Websocket
-    var ws = new WebSocket('ws://127.0.0.1:8080');
+    var ws = new WebSocket('ws://' + window.location.hostname + ':8080');
     ws.onopen = function()
     {
         // Web Socket is connected, send data using send()
