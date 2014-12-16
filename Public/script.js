@@ -8,8 +8,10 @@ angular.module('dashboard', ['ngMaterial'])
     $scope.tabs = tabs;
     $scope.selectedIndex = 0;
     $scope.addTab = function (title) {
-        view = title + " Content View";
-        tabs.push({ title: title, content: view, disabled: false});
+        if (name !== undefined && name !== "") {
+            view = title + " Content View";
+            tabs.push({ title: title, content: view, disabled: false});
+        }
         $scope.tTitle = "";
         $scope.tContent = "";
     };

@@ -21,7 +21,7 @@
                         </div>
                     </md-toolbar>
                     <div ng-repeat="process in traced_processes" layout="row" layout-align="start center" class="hover_background">
-                        <md-button ng-click=remove_process($index)>X</md-button>
+                        <md-button class="md-warn" ng-click=remove_process($index)>X</md-button>
                         <span>{{process.name}}</span>
                     </div>
                 </md-content>
