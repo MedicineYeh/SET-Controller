@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
         <link rel="stylesheet" href="/style.css">
         <link rel="stylesheet" href="/bower_components/angular-material/themes/green-theme.css">
+        <link rel="stylesheet" href="/bower_components/angular-material/themes/indigo-theme.css">
     </head>
     <body ng-app="dashboard" ng-controller="tab_control">
         <!--- 這邊是最上面的Tab，每一個Tab是一個模擬器的設定，可以在Tab最右邊按+來開新的模擬器 -->
@@ -11,7 +12,13 @@
             <md-tabs md-selected="selectedIndex">
             <md-tab ng-repeat="tab in tabs" ng-disabled="tab.disabled" label="{{tab.title}}">
             <div class="demo-tab tab{{$index%4}}" layout="column" layout-align="space-around start start" ng-controller="vm_control">
-                <div ng-bind="tab.content"></div>
+                <md-button class="md-primary" md-theme="indigo" ng-click="openBottomSheet($event)">
+                    Open a Bottom Sheet!
+                </md-button>
+                <b layout="row" layout-align="center center" layout-margin>
+                    {{alert}}
+                </b>
+                <b layout="row" layout-align="center center" layout-margin ng-bind="tab.content"></b>
                 <!--- 這邊是內容的版面，顯示個別模擬器可以設定的參數 -->
                 <!--- TODO 把可以設定的參數內容補齊並排版 -->
                 <md-content class="md-whiteframe-z1" layout-margin="4px">
@@ -85,6 +92,8 @@
         <script src="/bower_components/angular-animate/angular-animate.js"></script>
         <script src="/bower_components/hammerjs/hammer.js"></script>
         <script src="/bower_components/angular-material/angular-material.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <script src="/script.js"></script>
     </body>
 </html>

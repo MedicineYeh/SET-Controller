@@ -1,5 +1,5 @@
 angular.module('dashboard', ['ngMaterial'])
-.controller('tab_control', function($scope) {
+.controller('tab_control', function($scope, $mdBottomSheet) {
     //VMs
     var tabs = [
         { title: 'One', content: "Tabs will become paginated if there isn't enough room for them."},
@@ -20,9 +20,20 @@ angular.module('dashboard', ['ngMaterial'])
         $scope.tabs.splice(index, 1);
     };
 
+    //Bottom sheet
+    $scope.openBottomSheet = function($event) {
+        console.log("open");
+        $mdBottomSheet.show({
+            templateUrl: 'bottom-sheet.html',
+            controller: 'bottom_sheet_control',
+            targetEvent: $event
+        }).then(function(clickedItem) {
+            $scope.alert = clickedItem.name + ' clicked!';
+        });
+    };
 })
 .controller('vm_control', function($scope) {
-
+    
     //Process
     $scope.traced_processes = [];
 
@@ -97,6 +108,16 @@ angular.module('dashboard', ['ngMaterial'])
 
         ws.send(data);
     }
+})
+.controller('bottom_sheet_control', function($scope, $mdBottomSheet) {
+    $scope.items = [
+        { name: 'Save', icon: 'glyphicon glyphicon-download' },
+        { name: 'Load', icon: 'glyphicon glyphicon-upload' },
+        { name: 'Settings', icon: 'glyphicon glyphicon-wrench' }
+    ];
+    $scope.listItemClick = function($index) {
+        var clickedItem = $scope.items[$index];
+        $mdBottomSheet.hide(clickedItem);
+    };
 });
-
 
