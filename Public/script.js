@@ -1,5 +1,5 @@
 angular.module('dashboard', ['ngMaterial'])
-.controller('tab_control', function($scope, $mdBottomSheet) {
+.controller('tab_control', function($scope, $mdBottomSheet, $mdToast) {
     //VMs
     var tabs = [
     { title: 'One', content: "Tabs will become paginated if there isn't enough room for them."},
@@ -27,7 +27,22 @@ angular.module('dashboard', ['ngMaterial'])
             controller: 'bottom_sheet_control',
             targetEvent: $event
         }).then(function(clickedItem) {
-            $scope.alert = clickedItem.name + ' clicked!';
+            if (clickedItem.name === "Save") {
+
+            }
+            $scope.showActionToast(clickedItem.name + ' clicked!');
+        });
+    };
+
+    //Toast
+    $scope.showActionToast = function(content) {
+        var toast = $mdToast.simple()
+            .content(content)
+            .action('OK')
+            .highlightAction(false)
+            .position('top right')
+            .hideDelay(1000);
+        $mdToast.show(toast).then(function() {
         });
     };
 })
