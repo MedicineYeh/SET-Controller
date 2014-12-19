@@ -2,8 +2,7 @@ angular.module('dashboard', ['ngMaterial'])
 .controller('tab_control', function($scope, $mdBottomSheet, $mdToast) {
     //VMs
     var tabs = [
-    { title: 'One', content: "Tabs will become paginated if there isn't enough room for them."},
-    { title: 'Two', content: "Tabs will become paginated if there isn't enough room for them."}
+    { title: 'One', content: "Tabs will become paginated if there isn't enough room for them."}
     ];
 
     $scope.tabs = tabs;
@@ -28,31 +27,33 @@ angular.module('dashboard', ['ngMaterial'])
     }
 
     //Bottom sheet
+    $scope.links = [];
+    $scope.allLink = "";
     $scope.openBottomSheet = function($event) {
+        var index = 0;
+        var allModels = [];
+        $scope.links = [];
+        //go through every tabs and initialize the data
+        $scope.tabs.forEach(function(tab) {
+            var item = document.getElementById("tab_" + index);
+            if (typeof item != "undefined" && item != null) {
+                var model = angular.element(document.getElementById("tab_" + index)).scope().model;
+                var data = JSON.stringify(model, replacer);
+                var url = 'data:text/json;charset=utf8,' + encodeURIComponent(data);
+                $scope.links.push({url: url});
+                allModels.push(model);
+            }
+            index++;
+        });
+        var data = JSON.stringify(allModels, replacer);
+        $scope.allLink = 'data:text/json;charset=utf8,' + encodeURIComponent(data);
+
         $mdBottomSheet.show({
             templateUrl: 'bottom-sheet.html',
             controller: 'bottom_sheet_control',
             targetEvent: $event
         }).then(function(clickedItem) {
-            if (clickedItem.name === "Save") {
-                //locate current scope and set data
-                var model = angular.element(document.getElementById("tab_" + $scope.selectedIndex)).scope().model;
-                var data = JSON.stringify(model, replacer);
-
-                var url = 'data:text/json;charset=utf8,' + encodeURIComponent(data);
-                var link = document.createElement("a");
-                link.href = url;
-                link.target = "_blank";
-                //set the visibility hidden so it will not effect on your web-layout
-                link.style = "visibility:hidden";
-                link.download = "SET_settings.json";
- 
-                //this part will append the anchor tag and remove it after automatic click
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-            $scope.showActionToast(clickedItem.name + ' clicked!');
+            $scope.showActionToast(clickedItem.name + ' complete!');
         });
     };
 
@@ -69,13 +70,11 @@ angular.module('dashboard', ['ngMaterial'])
     };
 })
 .controller('vm_control', function($scope) {
-    
     //Process
     $scope.traced_processes = [];
 
     $scope.add_process = function (name) {
         if (name !== undefined && name !== "") {
-            console.log(name);
             $scope.traced_processes.push({name: name});
         }
         $scope.process_name = "";
@@ -140,22 +139,24 @@ angular.module('dashboard', ['ngMaterial'])
         var data = "{\"type\": \"start_trace\", \"content\": ";
         data += JSON.stringify($scope.model, replacer);
         data += "}";
-        console.log(data);
 
         ws.send(data);
     }
 })
 .controller('bottom_sheet_control', function($scope, $mdBottomSheet) {
+    var parentScope = angular.element(document.getElementsByTagName("body")).scope();
     $scope.items = [
-    { name: 'Save', icon: 'glyphicon glyphicon-download' },
-    { name: 'Save All', icon: 'glyphicon glyphicon-download' },
-    { name: 'Load', icon: 'glyphicon glyphicon-upload' },
-    { name: 'Load All', icon: 'glyphicon glyphicon-upload' },
-    { name: 'Settings', icon: 'glyphicon glyphicon-wrench' }
+    { name: 'Save', icon: 'glyphicon glyphicon-download', jsonData: parentScope.links[parentScope.selectedIndex].url, fileName: "SET_setting-" + parentScope.selectedIndex + ".json" },
+    { name: 'Save All', icon: 'glyphicon glyphicon-download', jsonData: parentScope.allLink, fileName: "SET_settings.json" },
+    { name: 'Load', icon: 'glyphicon glyphicon-upload', jsonData: "", fileName: "" },
+    { name: 'Load All', icon: 'glyphicon glyphicon-upload', jsonData: "", fileName: "" },
+    { name: 'Settings', icon: 'glyphicon glyphicon-wrench', jsonData: "", fileName: "" }
     ];
     $scope.listItemClick = function($index) {
         var clickedItem = $scope.items[$index];
         $mdBottomSheet.hide(clickedItem);
     };
+})
+.config(function($compileProvider){
+      $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|data|javascript):/);
 });
-

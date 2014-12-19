@@ -1,7 +1,8 @@
 <md-bottom-sheet class="md-grid">
     <md-list>
         <md-item ng-repeat="item in items">
-            <md-button aria-label="{{item.name}}" ng-click="listItemClick($index)">
+            <md-button aria-label="{{item.name}}" ng-click="listItemClick($index)" 
+                ng-href="{{item.jsonData}}" target="_blank" download="{{item.fileName}}">
                 <span class="{{ item.icon }}" style="font-size:40px" aria-hidden="true"></span>
                 <p class="md-grid-text"> {{ item.name }} </p>
             </md-button>
