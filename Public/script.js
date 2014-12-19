@@ -20,6 +20,13 @@ angular.module('dashboard', ['ngMaterial'])
         $scope.tabs.splice(index, 1);
     };
 
+    function replacer(key, value) {
+        if (key === "$$hashKey") {
+            return undefined;
+        }
+        return value;
+    }
+
     //Bottom sheet
     $scope.openBottomSheet = function($event) {
         $mdBottomSheet.show({
@@ -28,7 +35,22 @@ angular.module('dashboard', ['ngMaterial'])
             targetEvent: $event
         }).then(function(clickedItem) {
             if (clickedItem.name === "Save") {
+                //locate current scope and set data
+                var model = angular.element(document.getElementById("tab_" + $scope.selectedIndex)).scope().model;
+                var data = JSON.stringify(model, replacer);
 
+                var url = 'data:text/json;charset=utf8,' + encodeURIComponent(data);
+                var link = document.createElement("a");
+                link.href = url;
+                link.target = "_blank";
+                //set the visibility hidden so it will not effect on your web-layout
+                link.style = "visibility:hidden";
+                link.download = "SET_settings.json";
+ 
+                //this part will append the anchor tag and remove it after automatic click
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
             }
             $scope.showActionToast(clickedItem.name + ' clicked!');
         });

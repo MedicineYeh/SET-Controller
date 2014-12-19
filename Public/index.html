@@ -14,7 +14,7 @@
         <div class="tabsDynamicTabs" layout-margin layout-fill layout="column">
             <md-tabs md-selected="selectedIndex">
                 <md-tab ng-repeat="tab in tabs" ng-disabled="tab.disabled" label="{{tab.title}}">
-                    <div class="demo-tab tab{{$index%4}}" layout="column" layout-align="space-around start start" 
+                    <div class="demo-tab tab{{$index%4}}" layout="column" layout-align="space-around start start"  id="tab_{{$index}}"
                         ng-controller="vm_control">
                         <md-button class="md-primary" md-theme="indigo" ng-click="openBottomSheet($event)">
                             Open a Bottom Sheet!
