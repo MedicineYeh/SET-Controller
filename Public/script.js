@@ -2,8 +2,8 @@ angular.module('dashboard', ['ngMaterial'])
 .controller('tab_control', function($scope, $mdBottomSheet) {
     //VMs
     var tabs = [
-        { title: 'One', content: "Tabs will become paginated if there isn't enough room for them."},
-        { title: 'Two', content: "Tabs will become paginated if there isn't enough room for them."}
+    { title: 'One', content: "Tabs will become paginated if there isn't enough room for them."},
+    { title: 'Two', content: "Tabs will become paginated if there isn't enough room for them."}
     ];
 
     $scope.tabs = tabs;
@@ -22,7 +22,6 @@ angular.module('dashboard', ['ngMaterial'])
 
     //Bottom sheet
     $scope.openBottomSheet = function($event) {
-        console.log("open");
         $mdBottomSheet.show({
             templateUrl: 'bottom-sheet.html',
             controller: 'bottom_sheet_control',
@@ -111,9 +110,11 @@ angular.module('dashboard', ['ngMaterial'])
 })
 .controller('bottom_sheet_control', function($scope, $mdBottomSheet) {
     $scope.items = [
-        { name: 'Save', icon: 'glyphicon glyphicon-download' },
-        { name: 'Load', icon: 'glyphicon glyphicon-upload' },
-        { name: 'Settings', icon: 'glyphicon glyphicon-wrench' }
+    { name: 'Save', icon: 'glyphicon glyphicon-download' },
+    { name: 'Save All', icon: 'glyphicon glyphicon-download' },
+    { name: 'Load', icon: 'glyphicon glyphicon-upload' },
+    { name: 'Load All', icon: 'glyphicon glyphicon-upload' },
+    { name: 'Settings', icon: 'glyphicon glyphicon-wrench' }
     ];
     $scope.listItemClick = function($index) {
         var clickedItem = $scope.items[$index];

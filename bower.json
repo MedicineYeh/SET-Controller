@@ -1,6 +1,6 @@
 {
   "name": "SET_Controller",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "dependencies": {
     "angular-material": "v0.6.1"
   }
